@@ -2,27 +2,34 @@ package week5.Assignments;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import io.github.sukgu.Shadow;
 
 public class OrderMobile extends BaseClass {
 
-
+	@BeforeTest
+	public void setExcelName(){
+		excelName="ServiceNow";
+		sheetName="MobileOrder";
+	}
+	
 	@Test(dataProvider="fetchData")
 	public void orderMobile(String isReplaced, String monthlyallowance, String color, String storage, String phNumber) throws InterruptedException {
 
-
-		//3. Click-AllEnter Service catalog in filter navigator and press enter
-		Shadow dom=new Shadow(driver);
-		dom.findElementByXPath("//div[text()='All']").click();
+		Shadow shadow_dom;
+		//3. Click All, Enter Service catalog in filter navigator and press enter
+		shadow_dom=new Shadow(driver);
+		shadow_dom.findElementByXPath("//div[text()='All']").click();
 		Thread.sleep(2000);
-		dom.findElementByXPath("//a[@aria-label='Service Catalog']").click();
+
+		shadow_dom.findElementByXPath("//a[@aria-label='Service Catalog']").click();
 		Thread.sleep(5000);
 
 		//4. Click on  mobiles
-		WebElement mainFrame = dom.findElementByXPath("//iframe[@id='gsft_main']");
+		WebElement mainFrame = shadow_dom.findElementByXPath("//iframe[@id='gsft_main']");
 		driver.switchTo().frame(mainFrame);
-		dom.findElementByXPath(("//h2[contains(text(),'Mobiles')]/parent::span/parent::a")).click();		
+		shadow_dom.findElementByXPath(("//h2[contains(text(),'Mobiles')]/parent::span/parent::a")).click();		
 		Thread.sleep(3000);
 
 		//5.Select Apple iphone6s
